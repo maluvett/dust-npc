@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUST RP - NPC</title>
+    <!-- Шрифты: вестерн для заголовков и печатная машинка для кличек/должностей -->
+    <link href="https://fonts.googleapis.com/css2?family=Podkova:wght@600;800&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        /* Глобальные стили — стена салуна */
+        body {
+            background-color: #120a04;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(60, 40, 25, 0.4) 0%, rgba(10, 5, 2, 0.95) 100%),
+                linear-gradient(rgba(0,0,0,0.3) 50%, transparent 50%);
+            background-size: auto, 100% 4px; /* Эффект экрана/старого фото */
+            color: #e6cfaf;
+            font-family: 'Podkova', serif;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Главная вывеска сайта */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #e2ba86;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            text-shadow: 
+                -2px -2px 0 #000,  
+                 2px -2px 0 #000,
+                -2px  2px 0 #000,
+                 2px  2px 0 #000,
+                 5px  5px 15px rgba(0,0,0,0.8);
+            position: relative;
+            display: inline-block;
+        }
+
+        header h1::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 4px;
+            background: #e2ba86;
+            margin-top: 10px;
+            box-shadow: 0 2px 5px #000;
+        }
+
+        /* Стильное объявление сверху (Записка на доске) */
+        .announcement {
+            text-align: center;
+            max-width: 750px;
+            margin: 20px auto 50px auto;
+            background: rgba(226, 186, 134, 0.08);
+            border: 1px dashed rgba(222, 186, 134, 0.4);
+            padding: 15px 25px;
+            font-family: 'Special Elite', monospace;
+            font-size: 1.1rem;
+            color: #e2ba86;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            line-height: 1.4;
+        }
+
+        .board-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Деревянный щит фракции (Имитация досок) */
+        .faction-section {
+            background: #26160b;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                #2c1a0d 0px,
+                #2c1a0d 38px,
+                #1f1108 39px,
+                #1f1108 40px
+            );
+            border: 4px solid #170d06;
+            border-radius: 4px;
+            padding: 40px 25px;
+            margin-bottom: 70px;
+            box-shadow: 
+                inset 0 0 30px rgba(0,0,0,0.9),
+                0 20px 40px rgba(0,0,0,0.7);
+            position: relative;
+        }
+
+        /* Железные скобы по углам деревянного щита */
+        .faction-section::before {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(0,0,0,0.4);
+            pointer-events: none;
+        }
+
+        /* Название фракции — выжжено на дереве */
+        .faction-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #170d06;
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.1);
+            background: rgba(226, 186, 134, 0.85);
+            margin: -40px auto 40px auto;
+            padding: 10px 40px;
+            width: fit-content;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border: 2px solid #170d06;
+            letter-spacing: 2px;
+        }
+
+        /* Сетка объявлений */
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 40px 30px;
+            justify-items: center;
+        }
+
+        /* Стилизация самого плаката */
+        .wanted-poster {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #e1cdb0;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(245, 235, 215, 0.9) 0%, rgba(210, 185, 150, 0.95) 100%),
+                url('https://www.transparenttextures.com/patterns/cardboard-flat.png'); 
+            width: 230px;
+            padding: 25px 15px 20px 15px;
+            box-sizing: border-box;
+            border: 1px solid #9c7f59;
+            box-shadow: 
+                2px 10px 20px rgba(0,0,0,0.6),
+                inset 0 0 30px rgba(84, 58, 28, 0.3);
+            text-decoration: none;
+            color: #1c1006;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+        }
+
+        /* Эффект кованого гвоздя */
+        .wanted-poster::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 40% 40%, #555, #111);
+            border-radius: 50%;
+            box-shadow: 
+                0 3px 5px rgba(0,0,0,0.8),
+                inset -1px -1px 3px rgba(0,0,0,0.6);
+            z-index: 10;
+        }
+
+        /* Органический наклон плакатов */
+        .poster-grid > a:nth-child(even) { transform: rotate(1.5deg); }
+        .poster-grid > a:nth-child(odd) { transform: rotate(-1deg); }
+        .poster-grid > a:nth-child(3n) { transform: rotate(2.5deg); }
+
+        /* Эффект приближения при наведении */
+        .wanted-poster:hover {
+            transform: translateY(-10px) scale(1.05) rotate(0deg) !important;
+            box-shadow: 5px 25px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,0,0,0.1);
+            z-index: 5;
+            border-color: #543a1c;
+        }
+
+        /* Полупрозрачность для пустых заготовок, чтобы они не отвлекали от живых NPC */
+        .wanted-poster.empty-slot {
+            opacity: 0.4;
+        }
+        .wanted-poster.empty-slot:hover {
+            opacity: 1;
+        }
+
+        .poster-header {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin: 0 0 15px 0;
+            color: #422a12;
+            text-align: center;
+            border-bottom: 2px dashed #422a12;
+            width: 100%;
+            padding-bottom: 3px;
+        }
+
+        /* Рамка портрета */
+        .poster-photo-wrapper {
+            width: 170px;
+            height: 200px;
+            border: 3px solid #382411;
+            background: #24170b;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: inset 0 0 15px #000;
+        }
+
+        /* Эффект сепии для фото вестерна */
+        .poster-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(1) contrast(1.3) brightness(0.85) grayscale(0.15);
+        }
+
+        .photo-placeholder {
+            color: #d2b996;
+            font-size: 4.5rem;
+            opacity: 0.2;
+        }
+
+        /* Имя Фамилия */
+        .poster-name {
+            font-size: 1.35rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            width: 100%;
+            line-height: 1.2;
+        }
+
+        /* Кличка */
+        .poster-nickname {
+            font-family: 'Special Elite', monospace;
+            font-size: 1.1rem;
+            color: #541d13;
+            text-align: center;
+            margin: 0 0 8px 0;
+            font-weight: bold;
+        }
+
+        /* Должность */
+        .poster-job {
+            font-family: 'Special Elite', monospace;
+            font-size: 0.9rem;
+            text-align: center;
+            margin: 0;
+            color: #382a1c;
+            border-top: 1px solid rgba(66, 42, 18, 0.2);
+            width: 100%;
+            padding-top: 8px;
+            text-transform: lowercase;
+        }
+
+        /* Адаптация под телефоны */
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            header h1 { font-size: 2.5rem; }
+            .announcement { font-size: 0.95rem; margin-bottom: 30px; }
+            .faction-title { font-size: 1.5rem; margin-top: -30px; }
+            .faction-section { padding: 30px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DUST RP - NPC</h1>
+    </header>
+
+    <!-- Ваше объявление сверху сайта -->
+    <div class="announcement">
+        Если вы желаете отыгрывать НПС, как своего личного персонажа, то обратитесь к <strong>@maluvett</strong>.
+    </div>
+
+    <div class="board-container">
+
+        <!-- ================= ФРАКЦИЯ: RIO COBRE MINING CORPORATION ================= -->
+        <section class="faction-section">
+            <h2 class="faction-title">Rio Cobre Mining Corporation</h2>
+            <div class="poster-grid">
+                
+                <!-- 1 -->
+                <a href="https://teletype.in/@noonaweq/lkxi8Y7FAuv" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/xcptLxfG/image.png" alt="Сайлас Холл" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Сайлас Холл</div>
+                    <div class="poster-nickname">"Холодный Сайлас"</div>
+                    <div class="poster-job">Управляющий западными операциями Rio Cobre Mining Corporation</div>
+                </a>
+
+                <!-- 2 -->
+                <a href="https://teletype.in/@noonaweq/y9Q1rNy3sVW" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/r05PJSn0/image.png" alt="Джон Маккензи" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Джон Маккензи</div>
+                    <div class="poster-nickname">"Снайпер"</div>
+                    <div class="poster-job">Руководитель Агентства Маккензи</div>
+                </a>
+
+                <!-- 3 -->
+                <a href="https://teletype.in/@noonaweq/JYpWOzpASqJ" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/9zCDBczX/image.png" alt="Уиллард Крейн" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Уиллард Крейн</div>
+                    <div class="poster-nickname">"Счетовод"</div>
+                    <div class="poster-job">Главный бухгалтер Rio Cobre</div>
+                </a>
+
+                <!-- 4 -->
+                <a href="https://teletype.in/@noonaweq/Zii76raXtLr" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/jD00zSST/image.png" alt="Сесилия Морроу" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Сесилия Морроу</div>
+                    <div class="poster-nickname">"Сиси"</div>
+                    <div class="poster-job">Операционистка в главном банке Rio Cobre</div>
+                </a>
+
+                <!-- Пустые плакаты ведут на ТГ -->
+                <script>
+                    for(let i=1; i<=4; i++) {
+                        document.write(`
+                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
+                            <div class="poster-header">CHARACTER</div>
+                            <div class="poster-photo-wrapper">
+                                <span class="photo-placeholder">👤</span>
+                            </div>
+                            <div class="poster-name">Имя Фамилия</div>
+                            <div class="poster-nickname">"Кличка"</div>
+                            <div class="poster-job">Должность</div>
+                        </a>
+                        `);
+                    }
+                </script>
+
+            </div>
+        </section>
+
+
+        <!-- ================= ФРАКЦИЯ: ЗАКОН И ПОРЯДОК ================= -->
+        <section class="faction-section">
+            <h2 class="faction-title">Закон и порядок</h2>
+            <div class="poster-grid">
+                
+                <!-- 1 -->
+                <a href="https://teletype.in/@noonaweq/dTdyn3RlxVF" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/YvGNwt15/image.png" alt="Джедедайя Стоун" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Джедедайя Стоун</div>
+                    <div class="poster-nickname">"Булыжник"</div>
+                    <div class="poster-job">Шериф Редстоуна</div>
+                </a>
+
+                <!-- 2 -->
+                <a href="https://teletype.in/@noonaweq/hrlMgmfPELM" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/pp7LhFS0/image.png" alt="Элайджа Престон" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Элайджа Престон</div>
+                    <div class="poster-nickname">"Висельник"</div>
+                    <div class="poster-job">Федеральный маршал США</div>
+                </a>
+
+                <!-- 3 -->
+                <a href="https://teletype.in/@noonaweq/A56sSHZhEIB" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/VrLpgSt1/image.png" alt="Майор Сэмюэл Грейвс" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Майор Сэмюэл Грейвс</div>
+                    <div class="poster-nickname">""</div>
+                    <div class="poster-job">Нынешний комендант Форта Таннер</div>
+                </a>
+
+                <!-- 4 -->
+                <a href="https://teletype.in/@noonaweq/5V0-h023yX8" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/5H4TfP3H/image.png" alt="Капитан Хейл" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Капитан Хейл</div>
+                    <div class="poster-nickname">"Торгаш"</div>
+                    <div class="poster-job">Командир роты снабжения Форта Таннер</div>
+                </a>
+
+                <!-- Пустые плакаты ведут на ТГ -->
+                <script>
+                    for(let i=1; i<=4; i++) {
+                        document.write(`
+                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
+                            <div class="poster-header">CHARACTER</div>
+                            <div class="poster-photo-wrapper">
+                                <span class="photo-placeholder">👤</span>
+                            </div>
+                            <div class="poster-name">Имя Фамилия</div>
+                            <div class="poster-nickname">"Кличка"</div>
+                            <div class="poster-job">Должность</div>
+                        </a>
+                        `);
+                    }
+                </script>
+
+            </div>
+        </section>
+
+
+        <!-- ================= ФРАКЦИЯ: СЕМЬЯ МАККЕНА ================= -->
+        <section class="faction-section">
+            <h2 class="faction-title">Семья Маккена</h2>
+            <div class="poster-grid">
+                
+                <!-- 1 -->
+                <a href="https://teletype.in/@noonaweq/19u3digotAU" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/tsgbRCDx/image.png" alt="Шеймус Маккена" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Шеймус Маккена</div>
+                    <div class="poster-nickname">"Король Прерий"</div>
+                    <div class="poster-job">Глава клана Маккена</div>
+                </a>
+
+                <!-- 2 -->
+                <a href="https://teletype.in/@noonaweq/3xkck10sCJX" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/cgTyGpYD/image.png" alt="Молли Маккена" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Молли Маккена</div>
+                    <div class="poster-nickname">"Мисс Молли"</div>
+                    <div class="poster-job">Правая рука Шеймуса</div>
+                </a>
+
+                <!-- 3 -->
+                <a href="https://teletype.in/@noonaweq/3TcP9KZiGu8" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/McCXjjrR/image.png" alt="Братья Конноры" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Братья Конноны</div>
+                    <div class="poster-nickname">"Псы"</div>
+                    <div class="poster-job">Телохранители Шеймуса Маккена</div>
+                </a>
+
+                <!-- 4 -->
+                <a href="https://teletype.in/@noonaweq/kYdrgbmn5aC" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/xJFQzrCn/image.png" alt="Костоправ" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Костоправ</div>
+                    <div class="poster-nickname">""</div>
+                    <div class="poster-job">Кузнец клана</div>
+                </a>
+
+                <!-- Пустые плакаты ведут на ТГ -->
+                <script>
+                    for(let i=1; i<=4; i++) {
+                        document.write(`
+                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
+                            <div class="poster-header">CHARACTER</div>
+                            <div class="poster-photo-wrapper">
+                                <span class="photo-placeholder">👤</span>
+                            </div>
+                            <div class="poster-name">Имя Фамилия</div>
+                            <div class="poster-nickname">"Кличка"</div>
+                            <div class="poster-job">Должность</div>
+                        </a>
+                        `);
+                    }
+                </script>
+
+            </div>
+        </section>
+
+
+        <!-- ================= ФРАКЦИЯ: ВОЛЬНЫЕ ЛЮДИ ================= -->
+        <section class="faction-section">
+            <h2 class="faction-title">Вольные люди</h2>
+            <div class="poster-grid">
+                
+                <!-- 1 -->
+                <a href="https://teletype.in/@noonaweq/p3zbZnY7GPh" target="_blank" class="wanted-poster">
+                    <div class="poster-header">CHARACTER</div>
+                    <div class="poster-photo-wrapper">
+                        <img src="https://i.postimg.cc/rKVbLZFt/image.png" alt="Джек Холт" class="poster-photo">
+                    </div>
+                    <div class="poster-name">Джек Холт</div>
+                    <div class="poster-nickname">"Железный глаз"</div>
+                    <div class="poster-job">Легендарный стрелок</div>
+                </a>
+
+                <!-- Пустые плакаты ведут на ТГ -->
+                <script>
+                    for(let i=1; i<=7; i++) {
+                        document.write(`
+                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
+                            <div class="poster-header">CHARACTER</div>
+                            <div class="poster-photo-wrapper">
+                                <span class="photo-placeholder">👤</span>
+                            </div>
+                            <div class="poster-name">Имя Фамилия</div>
+                            <div class="poster-nickname">"Кличка"</div>
+                            <div class="poster-job">Должность</div>
+                        </a>
+                        `);
+                    }
+                </script>
+
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
