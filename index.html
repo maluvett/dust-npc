@@ -76,7 +76,7 @@
             margin: 0 auto;
         }
 
-        
+       
         .faction-section {
             background: #26160b;
             background-image: repeating-linear-gradient(
@@ -105,7 +105,7 @@
             pointer-events: none;
         }
 
-       
+        
         .faction-title {
             font-size: 2.2rem;
             font-weight: 800;
@@ -130,6 +130,38 @@
         }
 
         
+        .poster-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        
+        .poster-grid > .poster-wrapper:nth-child(even) { transform: rotate(1.5deg); }
+        .poster-grid > .poster-wrapper:nth-child(odd) { transform: rotate(-1deg); }
+        .poster-grid > .poster-wrapper:nth-child(3n) { transform: rotate(2.5deg); }
+
+        
+        .poster-wrapper:hover {
+            transform: translateY(-10px) scale(1.05) rotate(0deg) !important;
+            z-index: 5;
+        }
+
+        .poster-wrapper:hover .wanted-poster {
+            box-shadow: 5px 25px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,0,0,0.1);
+            border-color: #543a1c;
+        }
+
+        
+        .poster-wrapper.empty-slot {
+            opacity: 0.4;
+        }
+        .poster-wrapper.empty-slot:hover {
+            opacity: 1;
+        }
+
+        
         .wanted-poster {
             display: flex;
             flex-direction: column;
@@ -148,8 +180,8 @@
             text-decoration: none;
             color: #1c1006;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         
@@ -167,27 +199,6 @@
                 0 3px 5px rgba(0,0,0,0.8),
                 inset -1px -1px 3px rgba(0,0,0,0.6);
             z-index: 10;
-        }
-
-        
-        .poster-grid > a:nth-child(even) { transform: rotate(1.5deg); }
-        .poster-grid > a:nth-child(odd) { transform: rotate(-1deg); }
-        .poster-grid > a:nth-child(3n) { transform: rotate(2.5deg); }
-
-        
-        .wanted-poster:hover {
-            transform: translateY(-10px) scale(1.05) rotate(0deg) !important;
-            box-shadow: 5px 25px 35px rgba(0,0,0,0.8), inset 0 0 15px rgba(0,0,0,0.1);
-            z-index: 5;
-            border-color: #543a1c;
-        }
-
-        
-        .wanted-poster.empty-slot {
-            opacity: 0.4;
-        }
-        .wanted-poster.empty-slot:hover {
-            opacity: 1;
         }
 
         .poster-header {
@@ -251,7 +262,7 @@
             font-weight: bold;
         }
 
-        
+        /
         .poster-job {
             font-family: 'Special Elite', monospace;
             font-size: 0.9rem;
@@ -265,6 +276,21 @@
         }
 
         
+        .poster-label {
+            font-family: 'Special Elite', monospace;
+            font-size: 0.78rem;
+            color: #a28f73;
+            margin-top: 12px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .poster-wrapper:hover .poster-label {
+            color: #e2ba86;
+        }
+
+        /* Адаптация под телефоны */
         @media (max-width: 600px) {
             body { padding: 20px 10px; }
             header h1 { font-size: 2.5rem; }
@@ -293,62 +319,77 @@
             <div class="poster-grid">
                 
                 <!-- 1 -->
-                <a href="https://teletype.in/@noonaweq/lkxi8Y7FAuv" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/xcptLxfG/image.png" alt="Сайлас Холл" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Сайлас Холл</div>
-                    <div class="poster-nickname">"Холодный Сайлас"</div>
-                    <div class="poster-job">Управляющий западными операциями Rio Cobre Mining Corporation</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/lkxi8Y7FAuv" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/xcptLxfG/image.png" alt="Сайлас Холл" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Сайлас Холл</div>
+                        <div class="poster-nickname">"Холодный Сайлас"</div>
+                        <div class="poster-job">Управляющий западными операциями Rio Cobre Mining Corporation</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 2 -->
-                <a href="https://teletype.in/@noonaweq/y9Q1rNy3sVW" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/r05PJSn0/image.png" alt="Джон Маккензи" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Джон Маккензи</div>
-                    <div class="poster-nickname">"Снайпер"</div>
-                    <div class="poster-job">Руководитель Агентства Маккензи</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/y9Q1rNy3sVW" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/r05PJSn0/image.png" alt="Джон Маккензи" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Джон Маккензи</div>
+                        <div class="poster-nickname">"Снайпер"</div>
+                        <div class="poster-job">Руководитель Агентства Маккензи</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 3 -->
-                <a href="https://teletype.in/@noonaweq/JYpWOzpASqJ" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/9zCDBczX/image.png" alt="Уиллард Крейн" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Уиллард Крейн</div>
-                    <div class="poster-nickname">"Счетовод"</div>
-                    <div class="poster-job">Главный бухгалтер Rio Cobre</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/JYpWOzpASqJ" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/9zCDBczX/image.png" alt="Уиллард Крейн" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Уиллард Крейн</div>
+                        <div class="poster-nickname">"Счетовод"</div>
+                        <div class="poster-job">Главный бухгалтер Rio Cobre</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 4 -->
-                <a href="https://teletype.in/@noonaweq/Zii76raXtLr" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/jD00zSST/image.png" alt="Сесилия Морроу" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Сесилия Морроу</div>
-                    <div class="poster-nickname">"Сиси"</div>
-                    <div class="poster-job">Операционистка в главном банке Rio Cobre</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/Zii76raXtLr" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/jD00zSST/image.png" alt="Сесилия Морроу" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Сесилия Морроу</div>
+                        <div class="poster-nickname">"Сиси"</div>
+                        <div class="poster-job">Операционистка в главном банке Rio Cobre</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- Пустые плакаты ведут на ТГ -->
                 <script>
                     for(let i=1; i<=4; i++) {
                         document.write(`
-                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
-                            <div class="poster-header">CHARACTER</div>
-                            <div class="poster-photo-wrapper">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="poster-name">Имя Фамилия</div>
-                            <div class="poster-nickname">"Кличка"</div>
-                            <div class="poster-job">Должность</div>
-                        </a>
+                        <div class="poster-wrapper empty-slot">
+                            <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster">
+                                <div class="poster-header">CHARACTER</div>
+                                <div class="poster-photo-wrapper">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="poster-name">Имя Фамилия</div>
+                                <div class="poster-nickname">"Кличка"</div>
+                                <div class="poster-job">Должность</div>
+                            </a>
+                            <div class="poster-label">???</div>
+                        </div>
                         `);
                     }
                 </script>
@@ -363,62 +404,77 @@
             <div class="poster-grid">
                 
                 <!-- 1 -->
-                <a href="https://teletype.in/@noonaweq/dTdyn3RlxVF" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/YvGNwt15/image.png" alt="Джедедайя Стоун" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Джедедайя Стоун</div>
-                    <div class="poster-nickname">"Булыжник"</div>
-                    <div class="poster-job">Шериф Редстоуна</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/dTdyn3RlxVF" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/YvGNwt15/image.png" alt="Джедедайя Стоун" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Джедедайя Стоун</div>
+                        <div class="poster-nickname">"Булыжник"</div>
+                        <div class="poster-job">Шериф Редстоуна</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 2 -->
-                <a href="https://teletype.in/@noonaweq/hrlMgmfPELM" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/pp7LhFS0/image.png" alt="Элайджа Престон" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Элайджа Престон</div>
-                    <div class="poster-nickname">"Висельник"</div>
-                    <div class="poster-job">Федеральный маршал США</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/hrlMgmfPELM" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/pp7LhFS0/image.png" alt="Элайджа Престон" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Элайджа Престон</div>
+                        <div class="poster-nickname">"Висельник"</div>
+                        <div class="poster-job">Федеральный маршал США</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 3 -->
-                <a href="https://teletype.in/@noonaweq/A56sSHZhEIB" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/VrLpgSt1/image.png" alt="Майор Сэмюэл Грейвс" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Майор Сэмюэл Грейвс</div>
-                    <div class="poster-nickname">""</div>
-                    <div class="poster-job">Нынешний комендант Форта Таннер</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/A56sSHZhEIB" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/VrLpgSt1/image.png" alt="Майор Сэмюэл Грейвс" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Майор Сэмюэл Грейвс</div>
+                        <div class="poster-nickname">""</div>
+                        <div class="poster-job">Нынешний комендант Форта Таннер</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 4 -->
-                <a href="https://teletype.in/@noonaweq/5V0-h023yX8" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/5H4TfP3H/image.png" alt="Капитан Хейл" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Капитан Хейл</div>
-                    <div class="poster-nickname">"Торгаш"</div>
-                    <div class="poster-job">Командир роты снабжения Форта Таннер</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/5V0-h023yX8" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/5H4TfP3H/image.png" alt="Капитан Хейл" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Капитан Хейл</div>
+                        <div class="poster-nickname">"Торгаш"</div>
+                        <div class="poster-job">Командир роты снабжения Форта Таннер</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- Пустые плакаты ведут на ТГ -->
                 <script>
                     for(let i=1; i<=4; i++) {
                         document.write(`
-                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
-                            <div class="poster-header">CHARACTER</div>
-                            <div class="poster-photo-wrapper">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="poster-name">Имя Фамилия</div>
-                            <div class="poster-nickname">"Кличка"</div>
-                            <div class="poster-job">Должность</div>
-                        </a>
+                        <div class="poster-wrapper empty-slot">
+                            <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster">
+                                <div class="poster-header">CHARACTER</div>
+                                <div class="poster-photo-wrapper">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="poster-name">Имя Фамилия</div>
+                                <div class="poster-nickname">"Кличка"</div>
+                                <div class="poster-job">Должность</div>
+                            </a>
+                            <div class="poster-label">???</div>
+                        </div>
                         `);
                     }
                 </script>
@@ -433,62 +489,77 @@
             <div class="poster-grid">
                 
                 <!-- 1 -->
-                <a href="https://teletype.in/@noonaweq/19u3digotAU" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/tsgbRCDx/image.png" alt="Шеймус Маккена" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Шеймус Маккена</div>
-                    <div class="poster-nickname">"Король Прерий"</div>
-                    <div class="poster-job">Глава клана Маккена</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/19u3digotAU" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/tsgbRCDx/image.png" alt="Шеймус Маккена" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Шеймус Маккена</div>
+                        <div class="poster-nickname">"Король Прерий"</div>
+                        <div class="poster-job">Глава клана Маккена</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 2 -->
-                <a href="https://teletype.in/@noonaweq/3xkck10sCJX" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/cgTyGpYD/image.png" alt="Молли Маккена" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Молли Маккена</div>
-                    <div class="poster-nickname">"Мисс Молли"</div>
-                    <div class="poster-job">Правая рука Шеймуса</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/3xkck10sCJX" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/cgTyGpYD/image.png" alt="Молли Маккена" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Молли Маккена</div>
+                        <div class="poster-nickname">"Мисс Молли"</div>
+                        <div class="poster-job">Правая рука Шеймуса</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 3 -->
-                <a href="https://teletype.in/@noonaweq/3TcP9KZiGu8" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/McCXjjrR/image.png" alt="Братья Конноры" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Братья Конноны</div>
-                    <div class="poster-nickname">"Псы"</div>
-                    <div class="poster-job">Телохранители Шеймуса Маккена</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/3TcP9KZiGu8" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/McCXjjrR/image.png" alt="Братья Конноры" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Братья Конноры</div>
+                        <div class="poster-nickname">"Псы"</div>
+                        <div class="poster-job">Телохранители Шеймуса Маккена</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- 4 -->
-                <a href="https://teletype.in/@noonaweq/kYdrgbmn5aC" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/xJFQzrCn/image.png" alt="Костоправ" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Костоправ</div>
-                    <div class="poster-nickname">""</div>
-                    <div class="poster-job">Кузнец клана</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/kYdrgbmn5aC" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/xJFQzrCn/image.png" alt="Костоправ" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Костоправ</div>
+                        <div class="poster-nickname">""</div>
+                        <div class="poster-job">Кузнец клана</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
                 <!-- Пустые плакаты ведут на ТГ -->
                 <script>
                     for(let i=1; i<=4; i++) {
                         document.write(`
-                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
-                            <div class="poster-header">CHARACTER</div>
-                            <div class="poster-photo-wrapper">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="poster-name">Имя Фамилия</div>
-                            <div class="poster-nickname">"Кличка"</div>
-                            <div class="poster-job">Должность</div>
-                        </a>
+                        <div class="poster-wrapper empty-slot">
+                            <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster">
+                                <div class="poster-header">CHARACTER</div>
+                                <div class="poster-photo-wrapper">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="poster-name">Имя Фамилия</div>
+                                <div class="poster-nickname">"Кличка"</div>
+                                <div class="poster-job">Должность</div>
+                            </a>
+                            <div class="poster-label">???</div>
+                        </div>
                         `);
                     }
                 </script>
@@ -503,29 +574,35 @@
             <div class="poster-grid">
                 
                 <!-- 1 -->
-                <a href="https://teletype.in/@noonaweq/p3zbZnY7GPh" target="_blank" class="wanted-poster">
-                    <div class="poster-header">CHARACTER</div>
-                    <div class="poster-photo-wrapper">
-                        <img src="https://i.postimg.cc/rKVbLZFt/image.png" alt="Джек Холт" class="poster-photo">
-                    </div>
-                    <div class="poster-name">Джек Холт</div>
-                    <div class="poster-nickname">"Железный глаз"</div>
-                    <div class="poster-job">Легендарный стрелок</div>
-                </a>
+                <div class="poster-wrapper">
+                    <a href="https://teletype.in/@noonaweq/p3zbZnY7GPh" target="_blank" class="wanted-poster">
+                        <div class="poster-header">CHARACTER</div>
+                        <div class="poster-photo-wrapper">
+                            <img src="https://i.postimg.cc/rKVbLZFt/image.png" alt="Джек Холт" class="poster-photo">
+                        </div>
+                        <div class="poster-name">Джек Холт</div>
+                        <div class="poster-nickname">"Железный глаз"</div>
+                        <div class="poster-job">Легендарный стрелок</div>
+                    </a>
+                    <div class="poster-label">проектный НПС</div>
+                </div>
 
-                <!-- Пустые плакаты ведут на ТГ -->
+                
                 <script>
                     for(let i=1; i<=7; i++) {
                         document.write(`
-                        <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster empty-slot">
-                            <div class="poster-header">CHARACTER</div>
-                            <div class="poster-photo-wrapper">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="poster-name">Имя Фамилия</div>
-                            <div class="poster-nickname">"Кличка"</div>
-                            <div class="poster-job">Должность</div>
-                        </a>
+                        <div class="poster-wrapper empty-slot">
+                            <a href="https://t.me/dust_rp" target="_blank" class="wanted-poster">
+                                <div class="poster-header">CHARACTER</div>
+                                <div class="poster-photo-wrapper">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="poster-name">Имя Фамилия</div>
+                                <div class="poster-nickname">"Кличка"</div>
+                                <div class="poster-job">Должность</div>
+                            </a>
+                            <div class="poster-label">???</div>
+                        </div>
                         `);
                     }
                 </script>
